@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>Plotandstats.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Plotandstats.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">matplotlib </span><span class="s0">as </span><span class="s1">plt</span>
+
+<span class="s0">import </span><span class="s1">numpy </span><span class="s0">as </span><span class="s1">np</span>
+
+<span class="s0">import </span><span class="s1">pandas </span><span class="s0">as </span><span class="s1">pd</span>
+
+<span class="s0">from </span><span class="s1">matplotlib</span><span class="s2">.</span><span class="s1">pyplot </span><span class="s0">import </span><span class="s1">xlabel</span><span class="s2">, </span><span class="s1">ylabel</span>
+
+<span class="s0">def </span><span class="s1">plot_party_performance</span><span class="s2">(</span><span class="s1">parties</span><span class="s2">):</span>
+    <span class="s0">if not </span><span class="s1">parties</span><span class="s2">:</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;No party data available to plot.&quot;</span><span class="s2">)</span>
+        <span class="s0">return</span>
+
+    <span class="s4"># Extract names and total seats from the parties</span>
+    <span class="s1">names </span><span class="s2">= [</span><span class="s1">party</span><span class="s2">.</span><span class="s1">name </span><span class="s0">for </span><span class="s1">party </span><span class="s0">in </span><span class="s1">parties</span><span class="s2">.</span><span class="s1">values</span><span class="s2">()]  </span><span class="s4"># Use .values() to get party objects</span>
+    <span class="s1">total_seats </span><span class="s2">= [</span><span class="s1">party</span><span class="s2">.</span><span class="s1">total_seats </span><span class="s0">for </span><span class="s1">party </span><span class="s0">in </span><span class="s1">parties</span><span class="s2">.</span><span class="s1">values</span><span class="s2">()]  </span><span class="s4"># Corrected variable name</span>
+
+    <span class="s4"># Set x and y labels</span>
+    <span class="s1">plt</span><span class="s2">.</span><span class="s1">xlabel</span><span class="s2">(</span><span class="s3">'Parties'</span><span class="s2">)</span>
+    <span class="s1">plt</span><span class="s2">.</span><span class="s1">ylabel</span><span class="s2">(</span><span class="s3">'Seats Won'</span><span class="s2">)</span>
+
+    <span class="s4"># Plotting</span>
+    <span class="s1">plt</span><span class="s2">.</span><span class="s1">bar</span><span class="s2">(</span><span class="s1">names</span><span class="s2">, </span><span class="s1">total_seats</span><span class="s2">, </span><span class="s1">color</span><span class="s2">=</span><span class="s3">'skyblue'</span><span class="s2">)  </span><span class="s4"># Use plt.bar for bar chart</span>
+    <span class="s1">plt</span><span class="s2">.</span><span class="s1">title</span><span class="s2">(</span><span class="s3">'Party Performance for June 2024'</span><span class="s2">)</span>
+    <span class="s1">plt</span><span class="s2">.</span><span class="s1">xticks</span><span class="s2">(</span><span class="s1">rotation</span><span class="s2">=</span><span class="s5">45</span><span class="s2">)</span>
+    <span class="s1">plt</span><span class="s2">.</span><span class="s1">tight_layout</span><span class="s2">()</span>
+    <span class="s1">plt</span><span class="s2">.</span><span class="s1">show</span><span class="s2">()</span>
+
+<span class="s0">def </span><span class="s1">save_statistics</span><span class="s2">(</span><span class="s1">parties</span><span class="s2">):</span>
+    <span class="s0">try</span><span class="s2">:</span>
+        <span class="s0">with </span><span class="s1">open</span><span class="s2">(</span><span class="s3">&quot;statistics.txt&quot;</span><span class="s2">, </span><span class="s3">&quot;w&quot;</span><span class="s2">) </span><span class="s0">as </span><span class="s1">file</span><span class="s2">:</span>
+            <span class="s0">for </span><span class="s1">party </span><span class="s0">in </span><span class="s1">parties</span><span class="s2">.</span><span class="s1">values</span><span class="s2">():</span>
+                <span class="s1">file</span><span class="s2">.</span><span class="s1">write</span><span class="s2">(</span><span class="s1">str</span><span class="s2">(</span><span class="s1">party</span><span class="s2">) + </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">)</span>
+            <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Statistics saved to 'statistics.txt'.&quot;</span><span class="s2">)</span>
+    <span class="s0">except </span><span class="s1">IOError </span><span class="s0">as </span><span class="s1">e</span><span class="s2">:</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">f&quot;Error saving statistics: </span><span class="s0">{</span><span class="s1">e</span><span class="s0">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+
+<span class="s4"># Example usage (assuming you have a Party class and a list of party objects)</span>
+<span class="s4"># parties = {</span>
+<span class="s4">#     'Party A': Party('Party A', 10),</span>
+<span class="s4">#     'Party B': Party('Party B', 15),</span>
+<span class="s4">#     'Party C': Party('Party C', 5)</span>
+<span class="s4"># }</span>
+<span class="s4"># plot_party_performance(parties)</span>
+<span class="s4"># save_statistics(parties)</span></pre>
+</body>
+</html>

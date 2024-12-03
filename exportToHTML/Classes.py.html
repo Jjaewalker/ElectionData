@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>Classes.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #7a7e85;}
+.s3 { color: #6aab73;}
+.s4 { color: #bcbec4;}
+.s5 { color: #2aacb8;}
+.s6 { color: #5f826b; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Classes.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">csv</span>
+
+<span class="s2"># define the party class, name, the amount of votes, percentage of votes and candidate name</span>
+<span class="s2"># class keyword is used to define a blueprint for creating objects</span>
+<span class="s3">&quot;&quot;&quot;converts the variable 'v' to an integer. The int() function in Python&quot;&quot;&quot;</span>
+<span class="s3">&quot;&quot;&quot;Represents a political party.&quot;&quot;&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">Party</span><span class="s4">:</span>
+    <span class="s2">#__init__ method is a constructor method The __init__ method takes the following parameters and assigns them to the object's attributes:</span>
+    <span class="s0">def </span><span class="s1">__init__</span><span class="s4">(</span><span class="s1">self</span><span class="s4">, </span><span class="s1">name</span><span class="s4">):</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">= {</span><span class="s3">'name'</span><span class="s4">:</span><span class="s1">name</span><span class="s4">, </span><span class="s3">'members'</span><span class="s4">:</span><span class="s5">0</span><span class="s4">,</span><span class="s3">'votes'</span><span class="s4">:</span><span class="s5">0</span><span class="s4">}</span>
+
+    <span class="s0">def </span><span class="s1">IncrementmemberCount</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+        <span class="s6">&quot;&quot;&quot;Increments the count of members in the party.&quot;&quot;&quot;</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'members'</span><span class="s4">] += </span><span class="s5">1</span>
+    <span class="s0">def </span><span class="s1">IncrementVotesCount</span><span class="s4">(</span><span class="s1">self</span><span class="s4">,</span><span class="s1">v</span><span class="s4">):</span>
+        <span class="s6">&quot;&quot;&quot;Increments the total votes for the party.&quot;&quot;&quot;</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'votes'</span><span class="s4">] += </span><span class="s1">int</span><span class="s4">(</span><span class="s1">v</span><span class="s4">)</span>
+    <span class="s0">def </span><span class="s1">GetName</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+        <span class="s6">&quot;&quot;&quot;Returns the name of the party.&quot;&quot;&quot;</span>
+        <span class="s0">return </span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'name'</span><span class="s4">]</span>
+    <span class="s0">def </span><span class="s1">GetTotalVotes</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+        <span class="s0">return </span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'votes'</span><span class="s4">]</span>
+    <span class="s0">def </span><span class="s1">__str__</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+        <span class="s0">return </span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'name'</span><span class="s4">] + </span><span class="s3">&quot; has &quot; </span><span class="s4">+ </span><span class="s3">f&quot;</span><span class="s0">{</span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'members'</span><span class="s4">]</span><span class="s0">} </span><span class="s3">members and &quot; </span><span class="s4">+ </span><span class="s3">f&quot;</span><span class="s0">{</span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'votes'</span><span class="s4">]</span><span class="s0">} </span><span class="s3">total votes&quot;</span>
+    <span class="s0">def </span><span class="s1">AddVotes</span><span class="s4">(</span><span class="s1">self</span><span class="s4">,</span><span class="s1">v</span><span class="s4">):</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'votes'</span><span class="s4">]= </span><span class="s1">int</span><span class="s4">(</span><span class="s1">v</span><span class="s4">)</span>
+        <span class="s3">&quot;&quot;&quot;Adds votes to the MP's total.&quot;&quot;&quot;</span>
+    <span class="s0">def </span><span class="s1">GetVotes</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+        <span class="s0">return </span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'votes'</span><span class="s4">]</span>
+    <span class="s3">&quot;&quot;&quot;Returns the total votes received by the MP.&quot;&quot;&quot;</span>
+    <span class="s0">def </span><span class="s1">GetParty</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+        <span class="s0">return </span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'party'</span><span class="s4">]</span>
+
+
+<span class="s0">class </span><span class="s1">MP</span><span class="s4">:</span>
+
+    <span class="s0">def </span><span class="s1">__init__</span><span class="s4">(</span><span class="s1">self</span><span class="s4">, </span><span class="s1">name</span><span class="s4">, </span><span class="s1">conName</span><span class="s4">, </span><span class="s1">pName</span><span class="s4">,</span><span class="s1">votes</span><span class="s4">):</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">name </span><span class="s4">= </span><span class="s1">name</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">={</span><span class="s3">'name'</span><span class="s4">:</span><span class="s1">self</span><span class="s4">.</span><span class="s1">name</span><span class="s4">, </span><span class="s3">'constituency'</span><span class="s4">:</span><span class="s1">conName</span><span class="s4">,</span><span class="s3">'party'</span><span class="s4">:</span><span class="s1">pName</span><span class="s4">,</span><span class="s3">'votes'</span><span class="s4">:</span><span class="s5">0</span><span class="s4">}</span>
+    <span class="s0">def </span><span class="s1">GetName</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+        <span class="s0">return </span><span class="s1">self</span><span class="s4">.</span><span class="s1">name</span>
+    <span class="s0">def </span><span class="s1">__str__</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+        <span class="s1">data </span><span class="s4">= </span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'name'</span><span class="s4">] + </span><span class="s3">' MP for ' </span><span class="s4">+ </span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'constituency'</span><span class="s4">]</span>
+        <span class="s0">return </span><span class="s1">data</span>
+    <span class="s0">def </span><span class="s1">Addvotes</span><span class="s4">(</span><span class="s1">self</span><span class="s4">,</span><span class="s1">v</span><span class="s4">):</span>
+        <span class="s0">return </span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'votes'</span><span class="s4">]</span>
+    <span class="s0">def </span><span class="s1">GetParty</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+        <span class="s0">return </span><span class="s1">self</span><span class="s4">.</span><span class="s1">description</span><span class="s4">[</span><span class="s3">'party'</span><span class="s4">]</span>
+<span class="s0">def </span><span class="s1">__str__</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+    <span class="s0">return </span><span class="s1">self</span><span class="s4">.</span><span class="s1">name</span>
+
+<span class="s0">class </span><span class="s1">Constituency</span><span class="s4">:</span>
+    <span class="s0">def </span><span class="s1">__init__</span><span class="s4">(</span><span class="s1">self</span><span class="s4">, </span><span class="s1">name</span><span class="s4">, </span><span class="s1">registered_voters</span><span class="s4">, </span><span class="s1">total_votes_cast</span><span class="s4">):</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">name </span><span class="s4">= </span><span class="s1">name</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">registered_voters </span><span class="s4">= </span><span class="s1">registered_voters</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">total_votes_cast </span><span class="s4">= </span><span class="s1">total_votes_cast</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">mps </span><span class="s4">= []</span>
+
+    <span class="s0">def </span><span class="s1">add_mp</span><span class="s4">(</span><span class="s1">self</span><span class="s4">, </span><span class="s1">mp</span><span class="s4">):</span>
+        <span class="s1">self</span><span class="s4">.</span><span class="s1">mps</span><span class="s4">.</span><span class="s1">append</span><span class="s4">(</span><span class="s1">mp</span><span class="s4">)</span>
+
+    <span class="s0">def </span><span class="s1">get_total_party_votes</span><span class="s4">(</span><span class="s1">self</span><span class="s4">, </span><span class="s1">party</span><span class="s4">):</span>
+        <span class="s1">total_votes </span><span class="s4">= </span><span class="s1">self</span><span class="s4">.</span><span class="s1">total_votes_cast</span>
+        <span class="s0">if </span><span class="s1">total_votes </span><span class="s4">== </span><span class="s5">0</span><span class="s4">:</span>
+            <span class="s0">return </span><span class="s5">0</span>
+        <span class="s1">party_votes </span><span class="s4">= </span><span class="s1">self</span><span class="s4">.</span><span class="s1">get_total_party_votes</span><span class="s4">(</span><span class="s1">party</span><span class="s4">)</span>
+        <span class="s0">return </span><span class="s4">(</span><span class="s1">party_votes </span><span class="s4">/ </span><span class="s1">total_votes</span><span class="s4">) * </span><span class="s5">100</span>
+
+    <span class="s0">def </span><span class="s1">get_mp_by_name</span><span class="s4">(</span><span class="s1">self</span><span class="s4">,</span><span class="s1">name</span><span class="s4">):</span>
+        <span class="s0">for </span><span class="s1">mp </span><span class="s0">in </span><span class="s1">self</span><span class="s4">.</span><span class="s1">mps</span><span class="s4">:</span>
+            <span class="s0">if </span><span class="s1">mp</span><span class="s4">.</span><span class="s1">name</span><span class="s4">.</span><span class="s1">lower</span><span class="s4">() == </span><span class="s1">name</span><span class="s4">.</span><span class="s1">lower</span><span class="s4">():</span>
+                <span class="s0">return </span><span class="s1">mp</span>
+            <span class="s0">return None</span>
+
+    <span class="s0">def </span><span class="s1">__str__</span><span class="s4">(</span><span class="s1">self</span><span class="s4">):</span>
+        <span class="s0">return </span><span class="s3">f&quot;Constituency: </span><span class="s0">{</span><span class="s1">self</span><span class="s4">.</span><span class="s1">name</span><span class="s0">}</span><span class="s3">, Registered Voters: </span><span class="s0">{</span><span class="s1">self</span><span class="s4">.</span><span class="s1">registered_voters</span><span class="s0">}</span><span class="s3">,Total Votes cats: </span><span class="s0">{</span><span class="s1">self</span><span class="s4">.</span><span class="s1">total_votes_cast</span><span class="s0">}</span><span class="s3">&quot;</span>
+</pre>
+</body>
+</html>

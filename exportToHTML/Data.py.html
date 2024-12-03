@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>Data.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Data.py</font>
+</center></td></tr></table>
+<pre><span class="s0"># Total votes per party</span>
+<span class="s2">def </span><span class="s1">load_data</span><span class="s3">(</span><span class="s1">file_path</span><span class="s3">):</span>
+    <span class="s1">constituencies </span><span class="s3">= {}</span>
+    <span class="s1">parties </span><span class="s3">= {}</span>
+    <span class="s2">try</span><span class="s3">:</span>
+        <span class="s2">with </span><span class="s1">open</span><span class="s3">(</span><span class="s1">file_path</span><span class="s3">, </span><span class="s4">'r'</span><span class="s3">) </span><span class="s2">as </span><span class="s1">file</span><span class="s3">:</span>
+            <span class="s1">reader </span><span class="s3">= </span><span class="s1">csv</span><span class="s3">.</span><span class="s1">DictReader</span><span class="s3">(</span><span class="s1">file</span><span class="s3">)</span>
+            <span class="s2">for </span><span class="s1">row </span><span class="s2">in </span><span class="s1">reader</span><span class="s3">:</span>
+                <span class="s0"># Constituency data</span>
+                <span class="s1">constituency_name </span><span class="s3">= </span><span class="s1">row</span><span class="s3">[</span><span class="s4">&quot;Constituency&quot;</span><span class="s3">]</span>
+                <span class="s1">nation </span><span class="s3">= </span><span class="s1">row</span><span class="s3">[</span><span class="s4">&quot;Nation&quot;</span><span class="s3">]</span>
+                <span class="s1">registered_voters </span><span class="s3">= </span><span class="s1">int</span><span class="s3">(</span><span class="s1">row</span><span class="s3">[</span><span class="s4">&quot;Registered Voters&quot;</span><span class="s3">])</span>
+                <span class="s1">votes_cast </span><span class="s3">= </span><span class="s1">int</span><span class="s3">(</span><span class="s1">row</span><span class="s3">[</span><span class="s4">&quot;Votes Cast&quot;</span><span class="s3">])</span>
+                <span class="s2">if </span><span class="s1">constituency_name </span><span class="s2">not in </span><span class="s1">constituencies</span><span class="s3">:</span>
+                    <span class="s1">constituencies</span><span class="s3">[</span><span class="s1">constituency_name</span><span class="s3">] = </span><span class="s1">Constituency</span><span class="s3">(</span>
+                        <span class="s1">constituency_name</span><span class="s3">, </span><span class="s1">nation</span><span class="s3">, </span><span class="s1">registered_voters</span><span class="s3">, </span><span class="s1">votes_cast</span>
+                    <span class="s3">)</span>
+
+                <span class="s0"># Candidate data</span>
+                <span class="s1">name </span><span class="s3">= </span><span class="s1">row</span><span class="s3">[</span><span class="s4">&quot;Candidate Name&quot;</span><span class="s3">]</span>
+                <span class="s1">party </span><span class="s3">= </span><span class="s1">row</span><span class="s3">[</span><span class="s4">&quot;Party&quot;</span><span class="s3">]</span>
+                <span class="s1">votes </span><span class="s3">= </span><span class="s1">int</span><span class="s3">(</span><span class="s1">row</span><span class="s3">[</span><span class="s4">&quot;Votes&quot;</span><span class="s3">])</span>
+                <span class="s1">percentage </span><span class="s3">= </span><span class="s1">float</span><span class="s3">(</span><span class="s1">row</span><span class="s3">[</span><span class="s4">&quot;Percentage&quot;</span><span class="s3">])</span>
+                <span class="s1">candidate </span><span class="s3">= </span><span class="s1">mp</span><span class="s3">(</span><span class="s1">name</span><span class="s3">, </span><span class="s1">party</span><span class="s3">, </span><span class="s1">constituency_name</span><span class="s3">, </span><span class="s1">votes</span><span class="s3">, </span><span class="s1">percentage</span><span class="s3">)</span>
+
+                <span class="s0"># Add candidate to constituency</span>
+                <span class="s1">constituencies</span><span class="s3">[</span><span class="s1">constituency_name</span><span class="s3">].</span><span class="s1">add_candidate</span><span class="s3">(</span><span class="s1">candidate</span><span class="s3">)</span>
+
+                <span class="s0"># Party data</span>
+                <span class="s2">if </span><span class="s1">party </span><span class="s2">not in </span><span class="s1">parties</span><span class="s3">:</span>
+                    <span class="s1">parties</span><span class="s3">[</span><span class="s1">party</span><span class="s3">] = </span><span class="s1">party</span><span class="s3">(</span><span class="s1">party</span><span class="s3">)</span>
+                <span class="s1">parties</span><span class="s3">[</span><span class="s1">party</span><span class="s3">].</span><span class="s1">add_votes</span><span class="s3">(</span><span class="s1">votes</span><span class="s3">)</span>
+                <span class="s2">if </span><span class="s1">votes </span><span class="s3">== </span><span class="s1">max</span><span class="s3">(</span><span class="s1">v</span><span class="s3">[</span><span class="s4">&quot;Votes&quot;</span><span class="s3">] </span><span class="s2">for </span><span class="s1">v </span><span class="s2">in </span><span class="s1">constituencies</span><span class="s3">[</span><span class="s1">constituency_name</span><span class="s3">].</span><span class="s1">candidates</span><span class="s3">):</span>
+                    <span class="s1">parties</span><span class="s3">[</span><span class="s1">party</span><span class="s3">].</span><span class="s1">add_seat</span><span class="s3">()</span>
+
+    <span class="s2">except </span><span class="s1">FileNotFoundError</span><span class="s3">:</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Error: File </span><span class="s2">{</span><span class="s1">file_path</span><span class="s2">} </span><span class="s4">not found.&quot;</span><span class="s3">)</span>
+    <span class="s2">except </span><span class="s1">Exception </span><span class="s2">as </span><span class="s1">e</span><span class="s3">:</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;An error occurred: </span><span class="s2">{</span><span class="s1">e</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+    <span class="s2">return </span><span class="s1">constituencies</span><span class="s3">, </span><span class="s1">parties</span></pre>
+</body>
+</html>

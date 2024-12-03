@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Constituency.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #2aacb8;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Constituency.py</font>
+</center></td></tr></table>
+<pre><span class="s0">#Define variable to load the dataframe</span>
+<span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s1">self</span><span class="s3">.</span><span class="s1">name</span>
+
+<span class="s2">class </span><span class="s1">Constituency</span><span class="s3">:</span>
+    <span class="s2">def </span><span class="s1">__init__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">name</span><span class="s3">, </span><span class="s1">registered_voters</span><span class="s3">, </span><span class="s1">total_votes_cast</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">name </span><span class="s3">= </span><span class="s1">name</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">registered_voters </span><span class="s3">= </span><span class="s1">registered_voters</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">total_votes_cast </span><span class="s3">= </span><span class="s1">total_votes_cast</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">mps </span><span class="s3">= []</span>
+
+    <span class="s2">def </span><span class="s1">add_mp</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">mp</span><span class="s3">):</span>
+        <span class="s1">self</span><span class="s3">.</span><span class="s1">mps</span><span class="s3">.</span><span class="s1">append</span><span class="s3">(</span><span class="s1">mp</span><span class="s3">)</span>
+
+    <span class="s2">def </span><span class="s1">get_total_party_votes</span><span class="s3">(</span><span class="s1">self</span><span class="s3">, </span><span class="s1">party</span><span class="s3">):</span>
+        <span class="s1">total_votes </span><span class="s3">= </span><span class="s1">self</span><span class="s3">.</span><span class="s1">total_votes_cast</span>
+        <span class="s2">if </span><span class="s1">total_votes </span><span class="s3">== </span><span class="s4">0</span><span class="s3">:</span>
+            <span class="s2">return </span><span class="s4">0</span>
+        <span class="s1">party_votes </span><span class="s3">= </span><span class="s1">self</span><span class="s3">.</span><span class="s1">get_total_party_votes</span><span class="s3">(</span><span class="s1">party</span><span class="s3">)</span>
+        <span class="s2">return </span><span class="s3">(</span><span class="s1">party_votes </span><span class="s3">/ </span><span class="s1">total_votes</span><span class="s3">) * </span><span class="s4">100</span>
+
+    <span class="s2">def </span><span class="s1">get_mp_by_name</span><span class="s3">(</span><span class="s1">self</span><span class="s3">,</span><span class="s1">name</span><span class="s3">):</span>
+        <span class="s2">for </span><span class="s1">mp </span><span class="s2">in </span><span class="s1">self</span><span class="s3">.</span><span class="s1">mps</span><span class="s3">:</span>
+            <span class="s2">if </span><span class="s1">mp</span><span class="s3">.</span><span class="s1">name</span><span class="s3">.</span><span class="s1">lower</span><span class="s3">() == </span><span class="s1">name</span><span class="s3">.</span><span class="s1">lower</span><span class="s3">():</span>
+                <span class="s2">return </span><span class="s1">mp</span>
+            <span class="s2">return None</span>
+
+    <span class="s2">def </span><span class="s1">__str__</span><span class="s3">(</span><span class="s1">self</span><span class="s3">):</span>
+        <span class="s2">return </span><span class="s5">f&quot;Constituency: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">name</span><span class="s2">}</span><span class="s5">, Registered Voters: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">registered_voters</span><span class="s2">}</span><span class="s5">,Total Votes cats: </span><span class="s2">{</span><span class="s1">self</span><span class="s3">.</span><span class="s1">total_votes_cast</span><span class="s2">}</span><span class="s5">&quot;</span>
+</pre>
+</body>
+</html>

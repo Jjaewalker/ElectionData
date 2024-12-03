@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>readfiles.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #cf8e6d;}
+.s3 { color: #bcbec4;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+readfiles.py</font>
+</center></td></tr></table>
+<pre><span class="s0">#installreadfiles</span>
+<span class="s2">import </span><span class="s1">csv</span>
+<span class="s2">import </span><span class="s1">pandas</span>
+
+<span class="s0">#Openthecsvfile</span>
+
+<span class="s2">with </span><span class="s1">open</span><span class="s3">(</span><span class="s4">'../HoC-GE2024-results-by-constituency.csv'</span><span class="s3">, </span><span class="s1">mode</span><span class="s3">=</span><span class="s4">'r'</span><span class="s3">) </span><span class="s2">as </span><span class="s1">file</span><span class="s3">:</span>
+    <span class="s0"># Create a CSV reader object</span>
+    <span class="s1">csv_reader </span><span class="s3">= </span><span class="s1">csv</span><span class="s3">.</span><span class="s1">reader</span><span class="s3">(</span><span class="s1">file</span><span class="s3">)</span>
+
+    <span class="s0"># Read the header</span>
+    <span class="s1">header </span><span class="s3">= </span><span class="s1">next</span><span class="s3">(</span><span class="s1">csv_reader</span><span class="s3">)</span>
+    <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;header: </span><span class="s2">{</span><span class="s1">header</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+    <span class="s0"># Read each row of the CSV file</span>
+    <span class="s2">for </span><span class="s1">row </span><span class="s2">in </span><span class="s1">csv_reader</span><span class="s3">:</span>
+        <span class="s1">print</span><span class="s3">(</span><span class="s4">f&quot;Row:  </span><span class="s2">{</span><span class="s1">row</span><span class="s2">}</span><span class="s4">&quot;</span><span class="s3">)</span>
+
+
+        
+
+</pre>
+</body>
+</html>

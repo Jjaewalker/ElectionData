@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>Menusystem.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Menusystem.py</font>
+</center></td></tr></table>
+<pre><span class="s0">def </span><span class="s1">display_menu</span><span class="s2">():</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Menu Options:&quot;</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;1. View candidate details by party&quot;</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;2. View Candidate details by name&quot;</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;3. View Candidate details by Gender&quot;</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;4. View detail by constituency&quot;</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;5. View party performance&quot;</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;6. View Voting statistics&quot;</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;7. Plot party performance&quot;</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;8. Exit&quot;</span><span class="s2">)</span>
+
+<span class="s0">def </span><span class="s1">handle_choice</span><span class="s2">(</span><span class="s1">choice</span><span class="s2">, </span><span class="s1">constituencies</span><span class="s2">, </span><span class="s1">parties</span><span class="s2">):</span>
+    <span class="s0">if </span><span class="s1">choice </span><span class="s2">== </span><span class="s4">1</span><span class="s2">:</span>
+        <span class="s1">party_name </span><span class="s2">= </span><span class="s1">input</span><span class="s2">(</span><span class="s3">&quot;enter party_name:&quot;</span><span class="s2">)</span>
+        <span class="s0">if </span><span class="s1">party_name </span><span class="s0">in </span><span class="s1">parties</span><span class="s2">:</span>
+            <span class="s1">print</span><span class="s2">(</span><span class="s1">parties</span><span class="s2">[</span><span class="s1">party_name</span><span class="s2">])</span>
+        <span class="s0">else</span><span class="s2">:</span>
+            <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;party not found.&quot;</span><span class="s2">)</span>
+
+    <span class="s0">elif </span><span class="s1">choice </span><span class="s2">== </span><span class="s4">2</span><span class="s2">:</span>
+        <span class="s1">candidate_name </span><span class="s2">= </span><span class="s1">input</span><span class="s2">(</span><span class="s3">&quot;enter candidate name: &quot;</span><span class="s2">)</span>
+        <span class="s1">found </span><span class="s2">= </span><span class="s0">False</span>
+        <span class="s0">for </span><span class="s1">constituency </span><span class="s0">in </span><span class="s1">constituencies</span><span class="s2">.</span><span class="s1">values</span><span class="s2">():</span>
+            <span class="s0">for </span><span class="s1">candidate </span><span class="s0">in </span><span class="s1">constituencies</span><span class="s2">.</span><span class="s1">condidates</span><span class="s2">:</span>
+                <span class="s0">if  </span><span class="s1">candidate</span><span class="s2">.</span><span class="s1">name</span><span class="s2">.</span><span class="s1">lower</span><span class="s2">() == </span><span class="s1">candidate_name</span><span class="s2">.</span><span class="s1">lower</span><span class="s2">():</span>
+                    <span class="s1">print</span><span class="s2">(</span><span class="s1">candidate</span><span class="s2">)</span>
+                    <span class="s1">found </span><span class="s2">= </span><span class="s0">True</span>
+                    <span class="s0">break</span>
+            <span class="s0">if </span><span class="s1">found</span><span class="s2">:</span>
+                <span class="s0">break</span>
+        <span class="s0">if not </span><span class="s1">found</span><span class="s2">:</span>
+            <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;candidate not found.&quot;</span><span class="s2">)</span>
+
+    <span class="s0">elif </span><span class="s1">choice </span><span class="s2">== </span><span class="s4">3</span><span class="s2">:</span>
+        <span class="s1">constituency_name </span><span class="s2">= </span><span class="s1">input</span><span class="s2">(</span><span class="s3">&quot;Enter Constituency Name: &quot;</span><span class="s2">)</span>
+        <span class="s0">if </span><span class="s1">constituency_name </span><span class="s0">in </span><span class="s1">constituencies</span><span class="s2">:  </span>
+            <span class="s1">print</span><span class="s2">(</span><span class="s1">constituencies</span><span class="s2">[</span><span class="s1">constituency_name</span><span class="s2">])</span>
+        <span class="s0">else</span><span class="s2">:</span>
+            <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Constituency not found.&quot;</span><span class="s2">)</span>
+
+    <span class="s0">elif </span><span class="s1">choice </span><span class="s2">== </span><span class="s4">4</span><span class="s2">:</span>
+        <span class="s0">for </span><span class="s1">party </span><span class="s0">in </span><span class="s1">parties</span><span class="s2">.</span><span class="s1">values</span><span class="s2">():</span>
+            <span class="s1">print</span><span class="s2">(</span><span class="s1">party</span><span class="s2">)</span>
+
+    <span class="s0">elif </span><span class="s1">choice </span><span class="s2">== </span><span class="s4">5</span><span class="s2">:</span>
+        <span class="s1">total_votes </span><span class="s2">= </span><span class="s1">sum</span><span class="s2">(</span><span class="s1">c</span><span class="s2">.</span><span class="s1">votes_cast </span><span class="s0">for </span><span class="s1">c </span><span class="s0">in </span><span class="s1">constituencies</span><span class="s2">.</span><span class="s1">values</span><span class="s2">())</span>
+        <span class="s1">total_voters </span><span class="s2">= </span><span class="s1">sum</span><span class="s2">(</span><span class="s1">c</span><span class="s2">.</span><span class="s1">registered_voters </span><span class="s0">for </span><span class="s1">c </span><span class="s0">in </span><span class="s1">constituencies</span><span class="s2">.</span><span class="s1">values</span><span class="s2">())</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">f&quot;Total votes cast: </span><span class="s0">{</span><span class="s1">total_votes</span><span class="s0">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">f&quot;Total registered voters: </span><span class="s0">{</span><span class="s1">total_voters</span><span class="s0">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">f&quot;Turnout: </span><span class="s0">{</span><span class="s1">total_votes </span><span class="s2">/ </span><span class="s1">total_voters</span><span class="s0">:</span><span class="s3">.2%</span><span class="s0">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+
+    <span class="s0">elif </span><span class="s1">choice </span><span class="s2">== </span><span class="s4">6</span><span class="s2">:</span>
+        <span class="s1">plot_party_performance</span><span class="s2">(</span><span class="s1">parties</span><span class="s2">)</span>
+
+    <span class="s0">elif </span><span class="s1">choice </span><span class="s2">== </span><span class="s4">7</span><span class="s2">:</span>
+        <span class="s1">save_statistics</span><span class="s2">(</span><span class="s1">parties</span><span class="s2">)</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Statistics_saved. Exiting program.&quot;</span><span class="s2">)</span>
+        <span class="s1">exit</span><span class="s2">()</span>
+
+    <span class="s0">else</span><span class="s2">:</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;invalid choice. Please try again.&quot;</span><span class="s2">)</span></pre>
+</body>
+</html>
