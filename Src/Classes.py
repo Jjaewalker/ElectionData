@@ -1,78 +1,52 @@
-import csv
-
-# define the party class, name, the amount of votes, percentage of votes and candidate name
-# class keyword is used to define a blueprint for creating objects
-"""converts the variable 'v' to an integer. The int() function in Python"""
-"""Represents a political party."""
-
+class MP:
+    def __init__(self, name, party, constituency, votes_received, gender):
+        self.name = name
+        self.party = party
+        self.constituency = constituency
+        self.votes_received = votes_received
+        self.gender = gender
 
 class Party:
-    #__init__ method is a constructor method The __init__ method takes the following parameters and assigns them to the object's attributes:
     def __init__(self, name):
-        self.description= {'name':name, 'members':0,'votes':0}
-
-    def IncrementmemberCount(self):
-        """Increments the count of members in the party."""
-        self.description['members'] += 1
-    def IncrementVotesCount(self,v):
-        """Increments the total votes for the party."""
-        self.description['votes'] += int(v)
-    def GetName(self):
-        """Returns the name of the party."""
-        return self.description['name']
-    def GetTotalVotes(self):
-        return self.description['votes']
-    def __str__(self):
-        return self.description['name'] + " has " + f"{self.description['members']} members and " + f"{self.description['votes']} total votes"
-    def AddVotes(self,v):
-        self.description['votes']= int(v)
-        """Adds votes to the MP's total."""
-    def GetVotes(self):
-        return self.description['votes']
-    """Returns the total votes received by the MP."""
-    def GetParty(self):
-        return self.description['party']
-
-
-class MP:
-
-    def __init__(self, name, conName, pName,votes):
         self.name = name
-        self.description={'name':self.name, 'constituency':conName,'party':pName,'votes':0}
-    def GetName(self):
-        return self.name
-    def __str__(self):
-        data = self.description['name'] + ' MP for ' + self.description['constituency']
-        return data
-    def Addvotes(self,v):
-        return self.description['votes']
-    def GetParty(self):
-        return self.description['party']
-def __str__(self):
-    return self.name
+        self.total_votes = 0
+        self.number_of_mps = 0
+        self.male_mps = 0
+        self.female_mps = 0
 
+    def add_mp(self, mp):
+        self.number_of_mps += 1
+        self.total_votes += mp.votes_received
+        if mp.gender.lower() == 'male':
+            self.male_mps += 1
+        elif mp.gender.lower() == 'female':
+            self.female_mps += 1
+
+    def get_gender_percentage(self):
+        total = self.male_mps + self.female_mps
+        if total > 0:
+            male_percent = (self.male_mps / total) * 100
+            female_percent = (self.female_mps / total) * 100
+            return {'male': male_percent, 'female': female_percent}
+        else:
+            return {'male': 0, 'female': 0}
 class Constituency:
-    def __init__(self, name, registered_voters, total_votes_cast):
+    def __init__(self, name, registered_voters, total_votes_cast, nation):
         self.name = name
         self.registered_voters = registered_voters
         self.total_votes_cast = total_votes_cast
-        self.mps = []
+        self.nation = nation
+        self.candidates = []
+        self.elected_mp = None
 
-    def add_mp(self, mp):
-        self.mps.append(mp)
+    def add_candidate(self, mp):
+        self.candidates.append(mp)
+        # Determine if this candidate is the elected MP
+        if (not self.elected_mp) or (mp.votes_received > self.elected_mp.votes_received):
+            self.elected_mp = mp
 
-    def get_total_party_votes(self, party):
-        total_votes = self.total_votes_cast
-        if total_votes == 0:
+    def turnout_percentage(self):
+        if self.registered_voters > 0:
+            return (self.total_votes_cast / self.registered_voters) * 100
+        else:
             return 0
-        party_votes = self.get_total_party_votes(party)
-        return (party_votes / total_votes) * 100
-
-    def get_mp_by_name(self,name):
-        for mp in self.mps:
-            if mp.name.lower() == name.lower():
-                return mp
-            return None
-
-    def __str__(self):
-        return f"Constituency: {self.name}, Registered Voters: {self.registered_voters},Total Votes cats: {self.total_votes_cast}"
