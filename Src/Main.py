@@ -1,4 +1,5 @@
-
+import csv
+from fileinput import filename
 
 
 # Class Definitions
@@ -61,60 +62,73 @@ parties = {}
 constituencies = {}
 mps = []
 
-def read_election_data(filename):
-    # Get the file extension
-    file_extension = os.path.splitext(filename)[1].lower()
-
-    if file_extension == '.csv':
-        # Read data from CSV file
-        with open(filename, 'r', encoding='utf-8') as csvfile:
+def read_election_data(file_name):
+    try:
+        # Open the file
+        with open(file_name, 'r', encoding='cp1252') as csvfile:
+            # Read and skip the first two lines
+            next(csvfile)
+            next(csvfile)
+            # Initialize the DictReader with the remaining lines
             reader = csv.DictReader(csvfile)
+            # Normalize fieldnames
+            reader.fieldnames = [field.strip() for field in reader.fieldnames]
             for row in reader:
+                # Strip whitespace from each key and value
+                row = {key.strip(): value.strip() for key, value in row.items()}
+                # Check if the essential field is empty
+                if not row.get('Constituency name'):
+                    # If 'Constituency name' is empty, we've reached the end of valid data
+                    break
+                # Process the valid row
                 process_row(row)
-    elif file_extension == '.xlsx':
-        # Read data from Excel file using pandas
-        df = pd.read_excel(filename)
-        # Convert DataFrame rows to dictionaries
-        for index, row in df.iterrows():
-            # Convert row to a dictionary with string keys
-            row_dict = row.to_dict()
-            row_dict = {str(k): v for k, v in row_dict.items()}
-            process_row(row_dict)
-    else:
-        print(f"Unsupported file type: {file_extension}")
+                print(row)  # For debugging
+                process_row(row)
+    except FileNotFoundError:
+        print(f"File not found: {file_name}")
 
 def process_row(row):
     # Extract data from the row
-    constituency_name = row['Constituency']
-    nation = row['Nation']
-    registered_voters = int(row['Registered Voters'])
-    total_votes_cast = int(row['Total Votes Cast'])
-    candidate_name = row['Candidate Name']
-    party_name = row['Party']
-    votes_received = int(row['Votes Received'])
-    gender = row['Gender']
+    try:
+        constituency_name = row['Constituency name']
+        nation = row['Country name']
+        registered_voters = int(row['Electorate'].replace(',', '').strip('"'))
+        total_votes_cast = int(row['Valid votes'].replace(',', '').strip('"'))
+        candidate_name = f"{row['Member first name']} {row['Member surname']}"
+        party_name = row['First party']
+        gender = row['Member gender']
 
-    # Create or get Constituency object
-    if constituency_name not in constituencies:
-        constituency = Constituency(constituency_name, registered_voters, total_votes_cast, nation)
-        constituencies[constituency_name] = constituency
-    else:
-        constituency = constituencies[constituency_name]
+        # Votes received by the winning candidate
+        # Retrieve the votes from the column corresponding to the 'First party'
+        votes_received_str = row.get(party_name, '0')
+        votes_received = int(votes_received_str.replace(',', '').strip('"'))
 
-    # Create or get Party object
-    if party_name not in parties:
-        party = Party(party_name)
-        parties[party_name] = party
-    else:
-        party = parties[party_name]
+        # Create or get Constituency object
+        if constituency_name not in constituencies:
+            constituency = Constituency(constituency_name, registered_voters, total_votes_cast, nation)
+            constituencies[constituency_name] = constituency
+        else:
+            constituency = constituencies[constituency_name]
 
-    # Create MP object
-    mp = MP(candidate_name, party_name, constituency_name, votes_received, gender)
-    mps.append(mp)
+        # Create or get Party object
+        if party_name not in parties:
+            party = Party(party_name)
+            parties[party_name] = party
+        else:
+            party = parties[party_name]
 
-    # Add MP to constituency and party
-    constituency.add_candidate(mp)
-    party.add_mp(mp)
+        # Create MP object
+        mp = MP(candidate_name, party_name, constituency_name, votes_received, gender)
+        mps.append(mp)
+
+        # Add MP to constituency and party
+        constituency.add_candidate(mp)
+        party.add_mp(mp)
+
+    except KeyError as e:
+        print(f"KeyError: Missing expected column {e}")
+    except ValueError as e:
+        print(f"ValueError: {e} in row {row}")
 
 def display_menu():
     print("\nElection Data Inquiry System")
@@ -256,7 +270,8 @@ def save_statistics():
                 })
 
 if __name__ == "__main__":
-    filename = input("Enter the election data filename (with extension): ")
+    #filename = input("Enter the election data filename (with extension): ")
+    filename = "../FullDataFor20241.csv"
     read_election_data(filename)
     main_menu()
 
